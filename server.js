@@ -1,6 +1,5 @@
 const fs = require('file-system')
 const express = require('express')
-// const bodyParser = require('body-parser')
 
 const app = express();
 
@@ -8,10 +7,12 @@ const PORT = 3000
 const filePath = 'cards.json'
 
 
-const parserJson = express.json()
-const urlencoded = express.urlencoded({ extended: false })
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/api/cards/:id', function (req, res){
+
+
+app.get('/api/card/:id', function (req, res){
     const idCard = req.params.id
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
@@ -31,7 +32,7 @@ app.get('/api/cards', function (req, res){
         res.status(404).send("Content not found")
 })
 
-app.delete('/api/cards/:id',  function(req, res){
+app.delete('/api/card/:id',  function(req, res){
     const idCard = req.params.id
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
@@ -46,7 +47,7 @@ app.delete('/api/cards/:id',  function(req, res){
     
 })
 
-app.post('/api/cards', parserJson, function(req,res){
+app.post('/api/cards', function(req,res){
     if(!req.body){
         return response.sendStatus(400)
     } 
@@ -64,19 +65,23 @@ app.post('/api/cards', parserJson, function(req,res){
     }
 })
 
-app.path('/api/cards/:id', parserJson, function(res, req){
+app.patch('/api/card/:id', function(req, res){
     const idCard = req.params.id
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
-    cards.filter(item =>{
-        if(item.id === idCard)
-        {
-            
-        }
-    })
-}
-)
 
+    const newCards = cards.map(item =>{
+        if(item.id === Number(idCard))
+        {
+            return item =  {...item, ...req.body}
+        }
+        return item
+    })
+    res.send(newCards)
+
+    fs.writeFileSync(filePath, JSON.stringify(newCards))
+
+})
 
 
 app.listen(PORT,()=>{

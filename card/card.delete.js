@@ -8,12 +8,18 @@ const router = Router.delete('/:id', function(req, res){
     const idCard = req.params.id
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
-    const newCards = cards.filter(item => item.id !== Number(idCard))
+        const newCards = cards.filter(item => 
 
-    fs.writeFileSync(filePath, JSON.stringify(newCards))
-    const newContent  = fs.readFileSync(filePath, 'utf8')
-    const newReadyCards = JSON.parse(newContent)
-    res.send(newReadyCards)
+            item.id !== Number(idCard))
+    
+        fs.writeFileSync(filePath, JSON.stringify(newCards), err => {
+            if(err)
+                return res.status(400).send("Task can't deleted")
+        })
+        
+    // const newContent  = fs.readFileSync(filePath, 'utf8')
+    // const newReadyCards = JSON.parse(newContent)
+    // res.send(newReadyCards)
 })
 
 module.exports = router

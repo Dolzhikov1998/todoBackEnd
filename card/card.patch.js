@@ -15,7 +15,10 @@ const router = Router.patch('/:id', function(req, res){
         }
         return item
     })
-    fs.writeFileSync(filePath, JSON.stringify(newCards))
+    fs.writeFileSync(filePath, JSON.stringify(newCards), err => {
+        if(err)
+            return res.status(400).send("Task can't deleted")
+    })
 
 })
 

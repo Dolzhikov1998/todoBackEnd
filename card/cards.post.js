@@ -15,15 +15,18 @@ const router = Router.post('/', function(req,res){
         const content  = fs.readFileSync(filePath, 'utf8')     
         const cards = JSON.parse(content)
 
-        cards.push({id: Math.floor(Math.random()*1000000000000000), 
+        const newCards = {uuid: Math.floor(Math.random()*1000000000000000), 
             date: new Date(), 
             done:false, 
-            name: req.body.name})
+            name: req.body.name}
+
+        cards.push(newCards)
             fs.writeFileSync(filePath, JSON.stringify(cards), err => {
                 if(err){
                     res.send(err)
                 }
-            })        
+            }) 
+            res.send(newCards)       
     } 
 })
 

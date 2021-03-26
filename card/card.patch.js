@@ -9,9 +9,11 @@ const router = Router.patch('/:id', function(req, res){
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
     const newCards = cards.map(item =>{
-        if(item.id === Number(idCard))
+        if(item.uuid === Number(idCard))
         {
-            return item =  {...item, ...req.body}
+            item =  {...item, ...req.body}
+            res.send(item)
+            return item
         }
         return item
     })

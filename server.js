@@ -1,6 +1,9 @@
 const fs = require('file-system')
 const express = require('express')
 const morgan = require('morgan');
+const klawSync = require('klaw-sync');
+const path = require('path')
+
 const app = express()
 
 const PORT = 3000
@@ -18,16 +21,24 @@ app.use(express.urlencoded({ extended: false }))
 //     res.header('Access-Control-Allow-Headers', '*')
 //     next()
 //   });
+
+async function useControllers() {
+    const paths = klawSync(`${__dirname}/card`, {nodir: true});
+    let controllersCount = 0;
+    paths.forEach( (file) => {
+        if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
+        app.use('/api/cards', require(`${file.path}`));
+        console.log(file.path)
+        controllersCount++;
+    });
+
+    console.info(`Total controllers: ${controllersCount}`);
+};
+
+
 app.use(express.static('card'));
 
-app.use("/api/cards", require('./card/cards.get'));
-app.use("/api/cards", require('./card/cards.post'));
-
-app.use("/api/card", require('./card/card.patch'));
-app.use("/api/card", require('./card/card.get'));
-app.use("/api/card", require('./card/card.delete'));
-
-
+useControllers()
 
 app.listen(PORT,()=>{
     console.log("Server run...");

@@ -28,7 +28,6 @@ async function useControllers() {
     paths.forEach( (file) => {
         if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
         app.use('/api/cards', require(`${file.path}`));
-        console.log(file.path)
         controllersCount++;
     });
 

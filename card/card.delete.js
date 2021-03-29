@@ -6,7 +6,6 @@ const filePath = 'cards.json'
 
 const router = Router.delete('/:id', function(req, res){
     const idCard = req.params.id
-    console.log(typeof(idCard))
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
         const newCards = cards.filter(item => item.uuid !== Number(idCard))
@@ -15,9 +14,7 @@ const router = Router.delete('/:id', function(req, res){
                 return res.status(400).send("Task can't deleted")
         })
         
-    // const newContent  = fs.readFileSync(filePath, 'utf8')
-    // const newReadyCards = JSON.parse(newContent)
-    res.send(newCards)
+    res.status(204)
 })
 
 module.exports = router

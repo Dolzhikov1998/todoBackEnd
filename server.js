@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
+const dotenv = require('dotenv');
 
 const app = express()
 
@@ -10,6 +11,8 @@ const cors = require('cors')
 
 app.use(morgan('tiny'));
 app.use(cors())
+
+dotenv.config()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

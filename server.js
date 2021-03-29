@@ -3,7 +3,7 @@ const express = require('express')
 const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
 const app = express()
 
@@ -12,7 +12,7 @@ const cors = require('cors')
 app.use(morgan('tiny'));
 app.use(cors())
 
-dotenv.config()
+// dotenv.config()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -41,7 +41,7 @@ app.use(express.static('card'));
 
 useControllers()
 
-const port = process.env.port || 5001
+const port = process.env.PORT || 3000
 
 app.listen(port, ()=>{
     console.log("Server run...");

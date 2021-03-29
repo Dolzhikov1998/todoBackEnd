@@ -39,6 +39,6 @@ app.use(express.static('card'));
 
 useControllers()
 
-app.listen(PORT,()=>{
+app.listen(process.env.PORT || PORT,()=>{
     console.log("Server run...");
 })

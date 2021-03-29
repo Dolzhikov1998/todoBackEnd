@@ -3,10 +3,10 @@ const express = require('express')
 const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
+const env = require('dotenv')
 
 const app = express()
 
-const PORT = 3000
 const cors = require('cors')
 
 app.use(morgan('tiny'));
@@ -39,6 +39,6 @@ app.use(express.static('card'));
 
 useControllers()
 
-app.listen(process.env.PORT || PORT,()=>{
+app.listen(process.env.port || 3000,()=>{
     console.log("Server run...");
 })

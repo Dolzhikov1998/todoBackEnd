@@ -14,7 +14,7 @@ const router = Router.delete('/:id', function(req, res){
                 return res.status(400).send("Task can't deleted")
         })
         
-    res.status(204)
+    res.status(204).send()
 })
 
 module.exports = router

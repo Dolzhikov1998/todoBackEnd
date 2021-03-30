@@ -9,7 +9,8 @@ const router = Router.get('/:id', function (req, res){
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)
     const card = cards.filter(item => item.id === Number(idCard))
-    if(card.length > 0) return res.send(card)
+    if(card.length > 0) 
+        return res.send(card)
 
     res.status(404).send("Task not found")
 })

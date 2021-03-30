@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator')
 
 const filePath = 'cards.json'
 
-const router = Router.patch('/:id', body('name').isString(), function(req, res){
+const router = Router.patch('/:id', body('name').isString(),body('done').isBoolean(), function(req, res){
     const idCard = req.params.id
     const content  = fs.readFileSync(filePath, 'utf8')
     const cards = JSON.parse(content)

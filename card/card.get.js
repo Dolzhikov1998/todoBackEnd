@@ -1,18 +1,14 @@
 const fs = require('file-system')
 const express = require('express')
 const Router = express.Router()
+const { Task } = require('../models')
 
-const filePath = 'cards.json'
 
-const router = Router.get('/:id', function (req, res){
+const router = Router.get('/card/:id', async (req, res) => {
     const idCard = req.params.id
-    const content  = fs.readFileSync(filePath, 'utf8')
-    const cards = JSON.parse(content)
-    const card = cards.filter(item => item.id === Number(idCard))
-    if(card.length > 0) 
-        return res.send(card)
-
-    res.status(404).send("Task not found")
+    console.log(idCard)
+    const card = await Task.findAll({where:{uuid: idCard}})
+    res.send(card)
 })
 
 module.exports = router

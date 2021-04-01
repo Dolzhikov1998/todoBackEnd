@@ -3,7 +3,8 @@ const express = require('express')
 const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
-// const dotenv = require('dotenv');
+
+const db = require('./models/index')
 
 const app = express()
 
@@ -11,8 +12,6 @@ const cors = require('cors')
 
 app.use(morgan('tiny'));
 app.use(cors())
-
-// dotenv.config()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -29,7 +28,7 @@ async function useControllers() {
     let controllersCount = 0;
     paths.forEach( (file) => {
         if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
-        app.use('/api/cards', require(`${file.path}`));
+        app.use('/api', require(`${file.path}`));
         controllersCount++;
     });
 
@@ -44,5 +43,5 @@ useControllers()
 const port = process.env.PORT || 3000
 
 app.listen(port, ()=>{
-    console.log("Server run...");
+    console.log(`Server run on port ${port}`);
 })

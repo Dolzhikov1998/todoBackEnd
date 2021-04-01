@@ -2,32 +2,29 @@ const fs = require('file-system')
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
+const { Task } = require('../models')
 
-const filePath = 'cards.json'
 
-const router = Router.patch('/:id', body('name').isString(), body('done').isBoolean(), function(req, res){
-    const idCard = req.params.id
-    const content  = fs.readFileSync(filePath, 'utf8')
-    const cards = JSON.parse(content)
+const router = Router.patch('/card/:id',
+    body('name').isString(),
+    body('done').isBoolean(),
 
-    const errors = validationResult(req);
-    
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    async (req, res) => {
+        const idCard = req.params.id
 
-    const newCards = cards.map(item =>{
-        if(item.uuid === Number(idCard))
-        {
-            item =  {...item, ...req.body}
-            return item
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-        return item
+
+        const card = await Task.update({
+            name: req.body.name,
+            done: req.body.done
+        },
+            { where: { uuid: idCard } })
+            
+        res.send(card)
     })
-    fs.writeFileSync(filePath, JSON.stringify(newCards), err => {
-        if(err) return res.status(400).send("Task can't deleted")
-    })
-    res.send(newCards)
-})
 
 module.exports = router

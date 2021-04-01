@@ -7,7 +7,7 @@ const { Task } = require('../models')
 const router = Router.get('/card/:id', async (req, res) => {
     const idCard = req.params.id
     console.log(idCard)
-    const card = await Task.findAll({where:{uuid: idCard}})
+    const card = await Task.findAll({ where: { uuid: idCard } })
     res.send(card)
 })
 

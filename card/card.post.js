@@ -1,4 +1,3 @@
-const fs = require('file-system')
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
@@ -16,8 +15,7 @@ const router = Router.post('/card',
             done: false,
             name: req.body.name
         });
-
-        res.send(card);
+        res.send(card)
     })
 
 module.exports = router

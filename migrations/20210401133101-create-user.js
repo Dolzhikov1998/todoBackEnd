@@ -1,13 +1,14 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Tasks', {     
-      uuid: {      
+    await queryInterface.createTable('Tasks', {
+      uuid: {
         primaryKey: true,
-        type: Sequelize.UUID,      
+        type: Sequelize.UUID,
       },
       name: {
         type: Sequelize.STRING,
+        unique: true
       },
       done: {
         type: Sequelize.BOOLEAN,

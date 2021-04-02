@@ -1,4 +1,3 @@
-const fs = require('file-system')
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
@@ -19,8 +18,8 @@ const router = Router.patch('/card/:id',
         }
 
         const card = await Task.update({
-            name: req.body.name,
-            done: req.body.done
+            name: req.body,
+            done: req.body
         },
             { where: { uuid: idCard } })
             

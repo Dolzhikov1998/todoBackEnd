@@ -24,9 +24,9 @@ app.use(express.urlencoded({ extended: false }))
 //   });
 
 async function useControllers() {
-    const paths = klawSync(`${__dirname}/card`, {nodir: true});
+    const paths = klawSync(`${__dirname}/card`, { nodir: true });
     let controllersCount = 0;
-    paths.forEach( (file) => {
+    paths.forEach((file) => {
         if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
         app.use('/api', require(`${file.path}`));
         controllersCount++;
@@ -42,6 +42,6 @@ useControllers()
 
 const port = process.env.PORT || 3000
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`Server run on port ${port}`);
 })

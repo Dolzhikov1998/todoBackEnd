@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model, UUIDV4, 
+  Model, UUIDV4,
 } = require('sequelize');
 
 
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  
+
   Task.init({
     uuid: {
       type: DataTypes.UUID,
@@ -26,9 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    done: DataTypes.BOOLEAN,    
+    done: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
   }, {
-    defaultValue:false,
     sequelize,
     modelName: 'Task',
   });

@@ -16,7 +16,7 @@ const router = Router.post('/card',
         if (resultCheckingName) {
             res.status(400).send('Task already exists')
         }
-        const card = await Task.create({name: req.body.name});
+        const card = await Task.create({ name: req.body.name });
         res.send(card)
     })
 

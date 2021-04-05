@@ -6,7 +6,6 @@ module.exports = {
     "username": 'fnholjatfgwlvu',
     "password": '65e9f77f66fbe1354efa916f8ee68b7ca032d05bbc8a80d1e1da8cc153bf3764',
     "port": 5432,
-    "URI": 'postgres://fnholjatfgwlvu:65e9f77f66fbe1354efa916f8ee68b7ca032d05bbc8a80d1e1da8cc153bf3764@ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d6k84om0ofqveo',
     "dialectOptions": {
         "ssl": {
           "require": true,

@@ -19,7 +19,7 @@ const router = Router.get('/card', async (req, res) => {
 
     const cards = await Task.findAndCountAll(param)
 
-    res.send("asdasdasd")
+    res.send(cards)
 
 })
 

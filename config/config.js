@@ -6,6 +6,7 @@ module.exports = {
     "username": 'fnholjatfgwlvu',
     "password": '65e9f77f66fbe1354efa916f8ee68b7ca032d05bbc8a80d1e1da8cc153bf3764',
     "port": 5432,
+    "ssl": true,
     "dialectOptions": {
         "ssl": {
           "require": true,

@@ -1,7 +1,8 @@
+
 module.exports = {     
-    "database": "sequelize_database_development",
-    "host": "127.0.0.1",
+    "database": "d6k84om0ofqveo",
+    "host": "ec2-54-155-87-214.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres",
-    "username": "postgres",
-    "password": 'qwerty',
+    "username": process.env.DB_USERNAME,
+    "password": process.env.DB_PASSWORD,
 }

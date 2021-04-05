@@ -10,7 +10,7 @@ const router = Router.get('/card', async (req, res) => {
         offset: req.query.page * 5,
         limit: 5
     }
-
+    
     if (req.query.done)
         param.where = { done: req.query.done }
     if (req.query.order)
@@ -19,7 +19,7 @@ const router = Router.get('/card', async (req, res) => {
 
     const cards = await Task.findAndCountAll(param)
 
-    res.send(cards.rows)
+    res.send(cards)
 
 })
 

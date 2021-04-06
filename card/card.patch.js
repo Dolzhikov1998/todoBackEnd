@@ -18,8 +18,8 @@ const router = Router.patch('/card/:id',
         }
 
         const card = await Task.update({
-            name: req.body,
-            done: req.body
+            name: req.body.name,
+            done: req.body.done
         },
             { where: { uuid: idCard } })
             

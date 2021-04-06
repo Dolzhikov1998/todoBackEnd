@@ -8,7 +8,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const db = {};
 
-const sequelize = new Sequelize('postgres://fnholjatfgwlvu:65e9f77f66fbe1354efa916f8ee68b7ca032d05bbc8a80d1e1da8cc153bf3764@ec2-54-155-87-214.eu-west-1.compute.amazonaws.com:5432/d6k84om0ofqveo');
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 
 

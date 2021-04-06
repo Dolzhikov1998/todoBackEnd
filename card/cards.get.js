@@ -7,8 +7,8 @@ const router = Router.get('/card', async (req, res) => {
     const param = {
         where: {},
         order: [],
-        // offset: req.query.page * 5,
-        // limit: 5
+        offset: req.query.page * 5,
+        limit: 5
     }
     
     if (req.query.done)

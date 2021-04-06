@@ -16,7 +16,6 @@ const router = Router.get('/card', async (req, res) => {
     if (req.query.order)
         param.order.push(['createdAt', `${req.query.order}`])
 
-
     const cards = await Task.findAndCountAll(param)
 
     res.send(cards)

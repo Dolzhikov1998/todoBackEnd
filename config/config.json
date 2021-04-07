@@ -1,6 +1,5 @@
-
 {
-  "development":{
+  "development": {
     "database": "d6k84om0ofqveo",
     "host": "ec2-54-155-87-214.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres",
@@ -9,10 +8,19 @@
     "port": 5432,
     "ssl": true,
     "dialectOptions": {
-        "ssl": {
-          "require": true,
-          "rejectUnauthorized": false
-        }
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
       }
-  }     
+    }
+  },
+  "test": {
+    "database": "sequelize_database_development",
+    "host": "localhost",
+    "dialect": "postgres",
+    "username": "postgres",
+    "password": "qwerty",
+    "port": 5432,
+    "url": "jdbc:postgresql://localhost:5432/postgres"
+  }
 }

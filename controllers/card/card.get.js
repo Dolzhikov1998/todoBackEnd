@@ -1,6 +1,6 @@
 const express = require('express')
 const Router = express.Router()
-const { Task } = require('../models')
+const { Task } = require('../../models')
 
 
 const router = Router.get('/card/:id', async (req, res) => {

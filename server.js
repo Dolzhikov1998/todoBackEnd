@@ -23,19 +23,8 @@ app.use(express.urlencoded({ extended: false }))
 //     next()
 //   });
 
-async function useControllersCard() {
-    const paths = klawSync(`${__dirname}/card`, { nodir: true });
-    let controllersCount = 0;
-    paths.forEach((file) => {
-        if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
-        app.use('/api', require(`${file.path}`));
-        controllersCount++;
-    });
-
-    console.info(`Total controllers: ${controllersCount}`);
-};
-async function useControllersUser() {
-    const paths = klawSync(`${__dirname}/user`, { nodir: true });
+async function useControllers() {
+    const paths = klawSync(`${__dirname}/controllers`, { nodir: true });
     let controllersCount = 0;
     paths.forEach((file) => {
         if (path.basename(file.path)[0] === '_' || path.basename(file.path)[0] === '.') return;
@@ -47,10 +36,9 @@ async function useControllersUser() {
 };
 
 
-app.use(express.static('card'));
+// app.use(express.static('card'));
 
-useControllersCard()
-useControllersUser()
+useControllers()
 
 const port = process.env.PORT || 3000
 

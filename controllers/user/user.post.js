@@ -1,7 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
-const { User } = require('../models')
+const { User } = require('../../models')
 
 const router = Router.post('/user',
     async (req, res) => {

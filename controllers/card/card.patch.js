@@ -1,7 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
-const { Task } = require('../models')
+const { Task } = require('../../models')
 
 
 const router = Router.patch('/card/:id',

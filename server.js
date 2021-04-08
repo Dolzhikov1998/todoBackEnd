@@ -16,13 +16,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', '*')
-//     res.header('Access-Control-Allow-Headers', '*')
-//     next()
-//   });
-
 async function useControllers() {
     const paths = klawSync(`${__dirname}/controllers`, { nodir: true });
     let controllersCount = 0;
@@ -34,9 +27,6 @@ async function useControllers() {
 
     console.info(`Total controllers: ${controllersCount}`);
 };
-
-
-// app.use(express.static('card'));
 
 useControllers()
 

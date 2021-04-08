@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator')
 const { User } = require('../../models')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
+const { recurse } = require('file-system')
 
 dotenv.config();
 
@@ -16,22 +17,23 @@ const router = Router.post('/user/auth',
             return res.status(400).json({ errors: errors.array() });
         }
 
-        console.log(req.body)
-        const resultCheckingAuth = await User.findOne({
+        const user = await User.findOne({
             where: {
                 login: req.body.login,
                 password: req.body.password
             }
         })
+        console.log(user);
 
-        if (resultCheckingAuth) {
+
+        if (user) {
 
             const token = jwt.sign(
-                { ...req.body },
+                { uuid: user.uuid },
                 process.env.TOKEN_SECRET,
-                { expiresIn: '10s' })
+                { expiresIn: '20s' })
 
-            res.send({ msg: 'Auth success',  token: token })
+            res.send({ msg: 'Auth success', token: token })
         }
 
         res.status(400).send('Incorrect login or password')

@@ -3,8 +3,10 @@ const Router = express.Router()
 const { body, validationResult } = require('express-validator')
 const { Task } = require('../../models')
 
+const { auth } = require('../../auth')
 
-const router = Router.patch('/card/:id',
+
+const router = Router.patch('/card/:id', auth,
     body('name').isString(),
     body('done').isBoolean(),
 

@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "file-system": "^2.2.2",
+    "jsonwebtoken": "^8.5.1",
     "klaw-sync": "^6.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",

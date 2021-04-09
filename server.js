@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
 
+const dotenv = require('dotenv')
+
+dotenv.config();
+
 const db = require('./models/index')
 
 const app = express()

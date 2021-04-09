@@ -6,7 +6,7 @@ dotenv.config();
 module.exports.auth = (req, res, next) => {    
     const token = req.headers.token
 
-    if (token == null) return res.status(401).send('Token not provided')
+    if (token === null) return res.status(401).send('Token not provided')
 
     let tokenData;
     try {

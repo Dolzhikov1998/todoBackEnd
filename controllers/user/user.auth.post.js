@@ -16,20 +16,18 @@ const router = Router.post('/user/auth',
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
+// ПЕРЕДЕЛАТЬ ПРОВЕРКУ АВТОРИЗАЦИИ!!!!!!!!!!!!!!!!!!!
         const user = await User.findOne({
             where: {
                 login: req.body.login,
                 password: req.body.password
             }
         })
-        console.log(user);
-
-
+/////////////////////////////////////////////
         if (user) {
 
             const token = jwt.sign(
-                { uuid: user.uuid },
+                { uuid: user.dataValues.uuid },
                 process.env.TOKEN_SECRET,
                 { expiresIn: '20s' })
 

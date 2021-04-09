@@ -1,10 +1,10 @@
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
-const { Task } = require('../../models')
+const jwt_decode = require('jwt-decode')
 
 const { auth } = require('../../auth')
-const jwt_decode = require('jwt-decode')
+const { Task } = require('../../models')
 
 const router = Router.post('/card', auth,
     body('name').isString(),
@@ -18,19 +18,21 @@ const router = Router.post('/card', auth,
             const token = req.headers.token
             const decodeToken = jwt_decode(token)
 
-            console.log('=============================')
-            console.log(decodeToken.uuid)
 
 
-            const resultCheckingName = await Task.findOne({ where: { name: req.body.name, uuidUser: decodeToken.uuid } })
-            console.log('*****************************88888888')
-            console.log(resultCheckingName)
-            if (resultCheckingName!== null) {
+
+            const resultCheckingName = await Task.findOne({
+                where: {
+                    name: req.body.name,
+                    uuidUser: decodeToken.uuid
+                }
+            })
+            if (resultCheckingName) {
                 return res.status(400).send('Task already exists')
             }
 
             const card = await Task.create({ name: req.body.name, uuidUser: decodeToken.uuid });
-            const countCards = await Task.findAndCountAll()
+            const countCards = await Task.findAndCountAll({ where: { uuidUser: decodeToken.uuid } })
 
             res.send({ card, countCards })
         } catch (e) {

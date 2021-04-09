@@ -1,14 +1,8 @@
-const fs = require('file-system')
 const express = require('express')
 const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
-
-const dotenv = require('dotenv')
-
-dotenv.config();
-
-const db = require('./models/index')
+require('dotenv').config();
 
 const app = express()
 

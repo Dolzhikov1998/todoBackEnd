@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     queryInterface.changeColumn('Tasks', 'name', {
       type: Sequelize.STRING,
-      unique: false
+      unique:false
     })
 
   },

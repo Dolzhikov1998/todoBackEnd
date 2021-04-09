@@ -15,6 +15,7 @@ module.exports.auth = (req, res, next) => {
     } catch(e) {
         return res.status(401).send('Invalid or expired token')
     }
-
+    
+    res.locals.userId = tokenData.uuid;
     next();
 }

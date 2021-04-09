@@ -34,7 +34,7 @@ const router = Router.post('/user/reg',
         const token = jwt.sign(
             {uuid: user.dataValues.uuid},
             process.env.TOKEN_SECRET,
-            { expiresIn: '20s' })
+            { expiresIn: '200s' })
         res.send({ user: user, msg: 'Register success', token: token })
     })
 

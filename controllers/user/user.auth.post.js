@@ -29,7 +29,7 @@ const router = Router.post('/user/auth',
             const token = jwt.sign(
                 { uuid: user.dataValues.uuid },
                 process.env.TOKEN_SECRET,
-                { expiresIn: '20s' })
+                { expiresIn: '200s' })
 
             res.send({ msg: 'Auth success', token: token })
         }

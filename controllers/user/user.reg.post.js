@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator')
 const { User } = require('../../models')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
-const crypto = require("crypto")
+const CryptoJS = require("crypto-js")
 dotenv.config();
 
 const router = Router.post('/user/reg',
@@ -25,17 +25,7 @@ const router = Router.post('/user/reg',
                 res.status(400).send('User with this email already exists')
             }
 
-            const sha256 = crypto.createHash("sha256");
-            sha256.update(String(req.body.pasword), "utf8");
-            const hashPassword = sha256.digest("base64");
-
-            // const key = CryptoJS.enc.Hex.parse(Generate_key());
-            // const iv = CryptoJS.enc.Hex.parse(Generate_key());
-            // const hashPassword = CryptoJS.AES.encrypt((String(req.body.pasword),key, { iv: iv }))
-
-            // const hashPassword = crypto.AES.encrypt(req.body.pasword, "asdasdasd")
-
-            console.log(hashPassword)
+            const hashPassword = CryptoJS.SHA256(req.body.password).toString()
 
             const user = await User.create({
                 login: req.body.login,

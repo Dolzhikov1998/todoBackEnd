@@ -9,7 +9,6 @@ dotenv.config();
 
 const router = Router.post('/user/reg',
     async (req, res) => {
-
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -24,8 +23,8 @@ const router = Router.post('/user/reg',
             if (resultCheckingEmail) {
                 res.status(400).send('User with this email already exists')
             }
-            
-            const hashPassword = CryptoJS.SHA256(req.body.password,  process.env.WORD_SECRET).toString()
+
+            const hashPassword = CryptoJS.SHA256(req.body.password, process.env.WORD_SECRET).toString()
 
             const user = await User.create({
                 login: req.body.login,
@@ -34,7 +33,10 @@ const router = Router.post('/user/reg',
             });
 
             const token = jwt.sign(
-                { uuid: user.dataValues.uuid },
+                {
+                    uuid: user.dataValues.uuid,
+                    login: user.dataValues.login
+                },
                 process.env.TOKEN_SECRET,
                 { expiresIn: '2000s' })
 

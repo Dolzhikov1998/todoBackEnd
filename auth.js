@@ -17,5 +17,6 @@ module.exports.auth = (req, res, next) => {
     }
     
     res.locals.userId = tokenData.uuid;
+    
     next();
 }

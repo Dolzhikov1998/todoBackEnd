@@ -17,24 +17,28 @@ const router = Router.post('/user/auth',
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            // ПЕРЕДЕЛАТЬ ПРОВЕРКУ АВТОРИЗАЦИИ!!!!!!!!!!!!!!!!!!!
-            const user = await User.findOne({
+
+            const userLogin = await User.findOne({
                 where: {
                     login: req.body.login,
-                    password: CryptoJS.SHA256(req.body.password,  process.env.WORD_SECRET).toString()
                 }
             })
-            /////////////////////////////////////////////
-            if (user) {
-                const token = jwt.sign(
-                    { uuid: user.dataValues.uuid },
-                    process.env.TOKEN_SECRET,
-                    { expiresIn: '2000s' })
 
-                res.send({ msg: 'Auth success', token: token })
+            if (userLogin) {
+                if (userLogin.password === CryptoJS.SHA256(req.body.password, process.env.WORD_SECRET).toString()) {
+                    const token = jwt.sign(
+                        {
+                            uuid: userLogin.dataValues.uuid,
+                            login: userLogin.dataValues.login
+                        },
+                        process.env.TOKEN_SECRET,
+                        { expiresIn: '2000s' })
+
+                    return res.send({ msg: 'Auth success', token: token })
+                }
+                return res.send('Incorrect password')
             }
-
-            res.status(400).send('Incorrect login or password')
+            return res.send('Incorrect login')
 
         } catch (e) {
             console.log(e)

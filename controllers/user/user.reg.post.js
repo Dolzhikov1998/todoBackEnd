@@ -24,8 +24,8 @@ const router = Router.post('/user/reg',
             if (resultCheckingEmail) {
                 res.status(400).send('User with this email already exists')
             }
-
-            const hashPassword = CryptoJS.SHA256(req.body.password).toString()
+            
+            const hashPassword = CryptoJS.SHA256(req.body.password,  process.env.WORD_SECRET).toString()
 
             const user = await User.create({
                 login: req.body.login,

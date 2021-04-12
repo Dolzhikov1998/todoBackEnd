@@ -5,6 +5,7 @@ const { User } = require('../../models')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 const { recurse } = require('file-system')
+const CryptoJS = require("crypto-js")
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ const router = Router.post('/user/auth',
             const user = await User.findOne({
                 where: {
                     login: req.body.login,
-                    password: req.body.password
+                    password: CryptoJS.SHA256(req.body.password,  process.env.WORD_SECRET).toString()
                 }
             })
             /////////////////////////////////////////////

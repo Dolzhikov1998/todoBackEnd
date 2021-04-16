@@ -11,6 +11,8 @@ dotenv.config();
 
 
 const router = Router.post('/user/auth',
+    body('login').isString(),
+    body('password').isString(),
     async (req, res) => {
         try {
             const errors = validationResult(req);

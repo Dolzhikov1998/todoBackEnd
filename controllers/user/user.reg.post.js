@@ -8,6 +8,8 @@ const CryptoJS = require("crypto-js")
 dotenv.config();
 
 const router = Router.post('/user/reg',
+    body('login').isString(),
+    body('email').isEmail(),
     async (req, res) => {
         try {
             const errors = validationResult(req);

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.changeColumn('Tasks', 'name', {
+    await queryInterface.changeColumn('Tasks', 'name', {
       type: Sequelize.STRING,
       unique:false
     })
@@ -10,7 +10,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    queryInterface.changeColumn('Tasks', 'name', {
+    await queryInterface.changeColumn('Tasks', 'name', {
       type: Sequelize.STRING,
       unique: true
     })

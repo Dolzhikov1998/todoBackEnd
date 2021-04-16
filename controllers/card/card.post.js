@@ -18,15 +18,13 @@ const router = Router.post('/card', auth,
             const token = req.headers.token
             const decodeToken = jwt_decode(token)
 
-
-
-
             const resultCheckingName = await Task.findOne({
                 where: {
                     name: req.body.name,
                     uuidUser: decodeToken.uuid
                 }
             })
+
             if (resultCheckingName) {
                 return res.status(400).send('Task already exists')
             }

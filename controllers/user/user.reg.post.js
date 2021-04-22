@@ -1,11 +1,13 @@
 const express = require('express')
 const Router = express.Router()
 const { body, validationResult } = require('express-validator')
-const { User } = require('../../models')
+// const { User } = require('../../models')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 const CryptoJS = require("crypto-js")
 dotenv.config();
+
+const { UserModel } = require('../../models/user')
 
 const router = Router.post('/user/reg',
     body('login').isString(),
@@ -17,22 +19,38 @@ const router = Router.post('/user/reg',
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            const resultCheckingLogin = await User.findOne({ where: { login: req.body.login } })
+            // const resultCheckingLogin = await User.findOne({ where: { login: req.body.login } })
+            // if (resultCheckingLogin) {
+            //     return res.status(400).send('User with this login already exists')
+            // }
+            // const resultCheckingEmail = await User.findOne({ where: { email: req.body.email } })
+            // if (resultCheckingEmail) {
+            //     return res.status(400).send('User with this email already exists')
+            // }
+
+            const resultCheckingLogin = await UserModel.find({ where: { login: req.body.login } })
             if (resultCheckingLogin) {
                 return res.status(400).send('User with this login already exists')
             }
-            const resultCheckingEmail = await User.findOne({ where: { email: req.body.email } })
+            const resultCheckingEmail = await User.find({ where: { email: req.body.email } })
             if (resultCheckingEmail) {
                 return res.status(400).send('User with this email already exists')
             }
 
             const hashPassword = CryptoJS.SHA256(req.body.password, process.env.WORD_SECRET).toString()
 
-            const user = await User.create({
+            // const user = await User.create({
+            //     login: req.body.login,
+            //     password: hashPassword,
+            //     email: req.body.email
+            // });
+
+            const user = await new UserModel({
                 login: req.body.login,
                 password: hashPassword,
                 email: req.body.email
             });
+
 
             const token = jwt.sign(
                 {

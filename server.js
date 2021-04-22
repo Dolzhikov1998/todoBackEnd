@@ -2,7 +2,9 @@ const express = require('express')
 const morgan = require('morgan');
 const klawSync = require('klaw-sync');
 const path = require('path')
+const mongoose = require('mongoose')
 require('dotenv').config();
+const userShema = require('./models/user')
 
 const app = express()
 
@@ -27,6 +29,12 @@ async function useControllers() {
 };
 
 useControllers()
+
+
+mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
+    if (err) throw err;
+    console.log('БД подключена');
+})
 
 const port = process.env.PORT || 3000
 

@@ -19,11 +19,11 @@ const router = Router.post('/user/reg',
 
             const resultCheckingLogin = await User.findOne({ where: { login: req.body.login } })
             if (resultCheckingLogin) {
-                res.status(400).send('User with this login already exists')
+                return res.status(400).send('User with this login already exists')
             }
             const resultCheckingEmail = await User.findOne({ where: { email: req.body.email } })
             if (resultCheckingEmail) {
-                res.status(400).send('User with this email already exists')
+                return res.status(400).send('User with this email already exists')
             }
 
             const hashPassword = CryptoJS.SHA256(req.body.password, process.env.WORD_SECRET).toString()

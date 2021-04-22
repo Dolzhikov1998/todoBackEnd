@@ -2,7 +2,7 @@ const express = require('express')
 const Router = express.Router()
 
 const { auth } = require('../../auth')
-const { Task } = require('../../models')    
+const { Task } = require('../../models')
 
 const router = Router.get('/card', auth, async (req, res) => {
     const param = {
@@ -19,8 +19,9 @@ const router = Router.get('/card', auth, async (req, res) => {
         param.order.push(['createdAt', `${req.query.order}`])
 
     const cards = await Task.findAndCountAll(param)
-
-    res.send(cards)
+    // setTimeout(() => {
+        res.send(cards)
+    // }, 1500);
 })
 
 module.exports = router
